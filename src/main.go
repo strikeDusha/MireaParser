@@ -13,13 +13,15 @@ func main() {
 		log.Fatal(err)
 	}
 	pages := make([]*parser.Page, 0, len(lines))
-	for _, v := range lines {
-		f, err := parser.GetTable(v)
-		if err != nil {
-			log.Fatal(err)
-		}
-		pages = append(pages, f)
+	channel := make(chan *parser.Page, len(lines))
+	for _, v := range lines[:] {
+		go parser.GetTable(v, channel) // about 5 seconds for
 	}
+	for i := 0; i < len(lines); i++ {
+		v := <-channel
+		pages = append(pages, v)
+	}
+	
 	parser.MultiSheetExcelFile(pages, "mireafiles")
 
 }

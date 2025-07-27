@@ -48,7 +48,7 @@ func SingleSheetExcelFile(pg *Page) {
 		if v.Acceptance {
 			row.AddCell().SetString("+")
 		} else {
-			row.AddCell().SetString("-")
+			row.AddCell().SetString("")
 		}
 		row.AddCell().SetInt(v.Sum)
 	}
@@ -96,7 +96,7 @@ func MultiSheetExcelFile(pg []*Page, name string) {
 			if v.Acceptance {
 				row.AddCell().SetString("+")
 			} else {
-				row.AddCell().SetString("-")
+				row.AddCell().SetString("")
 			}
 			row.AddCell().SetInt(v.Sum)
 		}

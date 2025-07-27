@@ -12,7 +12,7 @@ import (
 
 //works only for mirea
 
-func GetTable(urlid string) (*Page, error) {
+func GetTable(urlid string, c chan *Page) {
 	url := fmt.Sprintf("https://priem.mirea.ru/competitions_api/entrants?competitions[]=%v", urlid)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -43,11 +43,11 @@ func GetTable(urlid string) (*Page, error) {
 	plan := gjson.Get(string(body), "data.0.plan").Int()
 	ti1 := gjson.Get(string(body), "data.0.title").String() + "\n"
 	ti1 += gjson.Get(string(body), "data.0.programSet_title").String()
-	return &Page{
+	c <- &Page{
 		Applicants: int(applicants),
 		Time:       t,
 		Planned:    int(plan),
 		Title:      ti1,
 		List:       list,
-	}, nil
+	}
 }
