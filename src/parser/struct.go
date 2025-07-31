@@ -14,6 +14,8 @@ type Student struct {
 	Priority   int
 	Acceptance bool
 	Sum        int
+	IHP        bool // low p
+	IHPO       bool // high p
 }
 type List []Student
 

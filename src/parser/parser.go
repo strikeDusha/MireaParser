@@ -31,6 +31,12 @@ func GetTable(urlid string, c chan *Page) {
 			Priority:   int(v.Get("p").Int()),
 			Acceptance: bool(v.Get("acc").Int() > 0),
 			Sum:        int(v.Get("fm").Int()),
+			IHP:        bool(v.Get("iHP").Int() > 0),
+			IHPO:       bool(v.Get("iHPO").Int() > 0),
+			// ihp osnovnoy vp
+			//ihpo prohodnoy vp
+			//
+			//add hp and mp
 		})
 	}
 

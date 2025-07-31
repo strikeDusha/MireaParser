@@ -35,6 +35,8 @@ func SingleSheetExcelFile(pg *Page) {
 	row.AddCell().SetInt(applicants)
 	row.AddCell().SetString("Пройдет")
 	row.AddCell().SetInt(plan)
+	row.AddCell().SetString("основной вп")
+	row.AddCell().SetString("балл")
 	row = sheet.AddRow()
 	row.AddCell().SetString("номер ")
 	row.AddCell().SetString("приоритет")
@@ -83,12 +85,15 @@ func MultiSheetExcelFile(pg []*Page, name string) {
 		row.AddCell().SetInt(applicants)
 		row.AddCell().SetString("Пройдет")
 		row.AddCell().SetInt(plan)
+		row.AddCell().SetString("основной вп")
+		row.AddCell().SetString("проходной вп")
 		row = sheet.AddRow()
 		row.AddCell().SetString("номер ")
 		row.AddCell().SetString("приоритет")
 		row.AddCell().SetString("согласие")
 		row.AddCell().SetString("балл")
-
+		row.AddCell().SetString("без согласия")
+		row.AddCell().SetString("c согласием")
 		for _, v := range p.List {
 			row := sheet.AddRow()
 			row.AddCell().SetInt(v.Id)
@@ -99,6 +104,16 @@ func MultiSheetExcelFile(pg []*Page, name string) {
 				row.AddCell().SetString("")
 			}
 			row.AddCell().SetInt(v.Sum)
+			if v.IHP {
+				row.AddCell().SetString("+")
+			} else {
+				row.AddCell().SetString("")
+			}
+			if v.IHPO {
+				row.AddCell().SetString("+")
+			} else {
+				row.AddCell().SetString("")
+			}
 		}
 	}
 	wb.Save(name + ".xlsx")
